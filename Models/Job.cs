@@ -1,0 +1,23 @@
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ASM_1670_Final.Models
+{
+    public class Job
+    {
+        public string Id { get; set; }
+        public string? JobTitle { get; set; }
+        public string? Location { get; set; }
+        public string? Industry { get; set; }
+        public string? Description { get; set; }
+        public string? Requiered1 { get; set; }
+        public string? Requiered2 { get; set; }
+        public DateTime? ApplicationDeadline { get; set; }
+        public int? LowestPrice { get; set; }
+        public int? HighestPrice { get; set; }
+        public string? UserId { get; set; }
+        [ForeignKey("UserId")]
+        public virtual ApplicationUser? User_Id { get; set; }
+
+    }
+}
