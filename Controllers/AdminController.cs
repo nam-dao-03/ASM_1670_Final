@@ -1,6 +1,8 @@
 ﻿using ASM_1670_Final.Data;
 using ASM_1670_Final.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASM_1670_Final.Controllers
 {
@@ -16,6 +18,8 @@ namespace ASM_1670_Final.Controllers
         {
             return View();
         }
+
+        //Roles
         public IActionResult IndexRole()
         {
             var roles = _context.Roles.ToList();
@@ -33,20 +37,34 @@ namespace ASM_1670_Final.Controllers
             {
                 _context.Roles.Add(model);
                 _context.SaveChanges();
-                return RedirectToAction("IndexRole");
+                return RedirectToAction(nameof(IndexRole));
             }
             else
             {
                 return View();
             }
         }
-        //[HttpPost]
-        //public IActionResult DeleteRole(string? id)
-        //{
-        //    var role = _context.Roles.Find(id);
-        //    _context.Remove(role);
-        //    _context.SaveChanges();
-        //    return RedirectToAction(nameof(IndexRole));
-        //}
+        [HttpGet]
+        public IActionResult DeleteRole(string? id)
+        {
+            var role = _context.Roles.Find(id);
+            return View(role);
+        }
+        [HttpPost]
+        public IActionResult DeleteRole(ApplicationRole model)
+        {
+            _context.Roles.Remove(model);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(IndexRole));
+        }
+
+        //User
+
+        [HttpGet]
+        public IActionResult IndexUser()
+        {
+            var users = _context.UserRoles.Include(x => x.User).Include(y => y.Role).ToList();
+            return View(users);
+        }
     }
 }

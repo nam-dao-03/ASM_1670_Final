@@ -29,7 +29,7 @@
                             <td>@Html.DisplayFor(model => role.Id)</td>
                             <td>@Html.DisplayFor(model => role.Name)</td>
                             <td>
-                                <a asp-controller="Admin" asp-action="Delete" asp-route-id="@role.Id" class="btn btn-danger btn-sm">Delete</a>
+                                <a asp-controller="Admin" asp-action="DeleteRole" asp-route-id="@role.Id" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                         </tr>
                     }
@@ -42,3 +42,5 @@
                 }
             </tbody>
         </table>
+      </div>
+      </div>
