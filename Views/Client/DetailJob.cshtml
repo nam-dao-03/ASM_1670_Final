@@ -44,9 +44,9 @@
                     {   
                         @foreach(var otherJob in Model.JobList)
                         {
-                            @if(Model.job.Industry == otherJob.Industry)
+                            @if(Model.job.Industry == otherJob.Industry && Model.job.Id != otherJob.Id)
                             {
-                                <a asp-controller="" asp-action="">
+                                <a asp-controller="Client" asp-action="DetailJob" asp-route-id="@otherJob.Id">
                                     <div class="other-job-section">
                                         <div class="other-job-section-main">
                                             <div class="other-job-section-img">

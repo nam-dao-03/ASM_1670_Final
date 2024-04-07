@@ -15,7 +15,7 @@
     <div class="container mt-5">
         <h2 class="mb-4">Job Posting Form</h2>
         <form asp-action="CreateJob" asp-controller="Client">
-            <input value="@ViewBag.UserId" asp-for="@Model.UserId">
+            <input value="@ViewBag.UserId" asp-for="@Model.User_Id">
             <div class="form-group">
                 <label asp-for="JobTitle">Job Title</label>
                 <input type="text" class="form-control" asp-for="JobTitle" placeholder="Enter job title">

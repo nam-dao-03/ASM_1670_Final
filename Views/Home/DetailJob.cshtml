@@ -5,6 +5,7 @@
 @model ASM_1670_Final.Models.ViewModel.ViewModelDetailJob
 <section class="detail__job">
     <div class="container">
+        @if(Model.job != null) {
         <div class="detail__job-inner">
             <div class="detail__job-column-left">
                 <div class="detail__job-column-left-main">
@@ -68,14 +69,19 @@
                                 </a>
                             }
                         }
-
                     }
-
                 </div>
             </div>
-        </div>
+            </div>
+        } else
+        {
+            <h1>Nothing in here</h1>
+        }
     </div>
 </section>
+
+
+
 <style>
     .detail__job-inner {
         display: flex;

@@ -75,21 +75,14 @@ namespace ASM_1670_Final.Controllers
         [NonAction]
         private void LoadRoles()
         {
-            var roles = _context.Roles.ToList();
+            var roles = _roleManager.Roles.ToList();
             ViewBag.Roles = new SelectList(roles, "Id", "Name");
         }
-        [HttpPost]
-        public IActionResult CreateUser(ApplicationUser model, ApplicationUserRole model1)
-        { 
-            _context.Users.Add(model);
-            //ApplicationUserRole UserRole = new ApplicationUserRole
-            //{
-            //    RoleId = model1.RoleId,
-            //    UserId = model.Id
-            //};
-            //_context.UserRoles.Add(UserRole);
-            _context.SaveChanges();
-            return RedirectToAction(nameof(IndexUser));
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> CreateUser(ApplicationUser model)
+        //{
+            
+        //    return View();
+        //}
     }
 }

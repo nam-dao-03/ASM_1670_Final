@@ -18,12 +18,12 @@
             <input asp-for="PasswordHash" class="form-control" pattern="(?=.*[A-Z])(?=.*[!@@#$%^&*])(?=.*[a-zA-Z]).{6,}" 
             title="Mật khẩu phải chứa ít nhất 6 kí tự, bao gồm ít nhất một chữ cái viết hoa và một kí tự đặc biệt" required />
         </div>
-       @*  <div class="mb-2">
+        <div class="mb-2">
             <label class="control-label">Role</label>
-            <select asp-for="" class="form-control" asp-items="ViewBag.Roles">
+            <select asp-for="UserRoles" class="form-control" asp-items="ViewBag.Roles">
                 <option>--Select Role</option>
             </select>
-        </div> *@
+        </div>
         <div>
             <input type="submit" value="Create" class="btn btn-primary mb-1" />
         </div>
