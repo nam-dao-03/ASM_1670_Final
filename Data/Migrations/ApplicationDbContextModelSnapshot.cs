@@ -137,8 +137,11 @@ namespace ASM_1670_Final.Data.Migrations
 
             modelBuilder.Entity("ASM_1670_Final.Models.Job", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("ApplicationDeadline")
                         .HasColumnType("datetime2");
@@ -172,15 +175,20 @@ namespace ASM_1670_Final.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Jobs");
                 });
 
             modelBuilder.Entity("ASM_1670_Final.Models.JobApplication", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CVUrl")
                         .HasColumnType("nvarchar(max)");
@@ -199,7 +207,9 @@ namespace ASM_1670_Final.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("JobApplications");
                 });
@@ -321,8 +331,8 @@ namespace ASM_1670_Final.Data.Migrations
             modelBuilder.Entity("ASM_1670_Final.Models.Job", b =>
                 {
                     b.HasOne("ASM_1670_Final.Models.ApplicationUser", "User_Id")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithOne("Job")
+                        .HasForeignKey("ASM_1670_Final.Models.Job", "UserId");
 
                     b.Navigation("User_Id");
                 });
@@ -330,8 +340,8 @@ namespace ASM_1670_Final.Data.Migrations
             modelBuilder.Entity("ASM_1670_Final.Models.JobApplication", b =>
                 {
                     b.HasOne("ASM_1670_Final.Models.ApplicationUser", "User_Id")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithOne("JobApplication")
+                        .HasForeignKey("ASM_1670_Final.Models.JobApplication", "UserId");
 
                     b.Navigation("User_Id");
                 });
@@ -380,6 +390,12 @@ namespace ASM_1670_Final.Data.Migrations
             modelBuilder.Entity("ASM_1670_Final.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Claims");
+
+                    b.Navigation("Job")
+                        .IsRequired();
+
+                    b.Navigation("JobApplication")
+                        .IsRequired();
 
                     b.Navigation("Logins");
 

@@ -34,19 +34,17 @@ namespace ASM_1670_Final.Controllers
         {
             return View();
         }
-        //[HttpPost]
-        //public IActionResult CreateRole(ApplicationRole model)
-        //{
-        //    if (!_roleManager.RoleExistsAsync(model.Name).GetAwaiter().GetResult())
-        //    {
-        //        _roleManager.CreateAsync(new ApplicationRole(model.Name)).GetAwaiter().GetResult();
-        //        return RedirectToAction(nameof(IndexRole));
-        //    }
-        //    else
-        //    {
-        //        return View();
-        //    }
-        //}
+        [HttpPost]
+        public async Task<IActionResult> CreateRole(ApplicationRole model)
+        {
+            if (!await _roleManager.RoleExistsAsync(model.Name))
+            {
+                var role = new ApplicationRole { Name = model.Name };
+                var result = await _roleManager.CreateAsync(role);
+                return RedirectToAction(nameof(IndexRole));
+            }
+            return View();
+        }
         [HttpGet]
         public IActionResult DeleteRole(string? id)
         {

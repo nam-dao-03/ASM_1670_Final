@@ -41,7 +41,7 @@
                 <h3 class="other-job">Việc làm khác từ <span>@Model.job.Industry</span></h3>
                 <div class="other-job-list">
                     @if (Model.JobList != null && Model.JobList.Any())
-                    {   
+                    {
                         @foreach(var otherJob in Model.JobList)
                         {
                             @if(Model.job.Industry == otherJob.Industry)
@@ -68,7 +68,7 @@
                                 </a>
                             }
                         }
-                        
+
                     }
 
                 </div>

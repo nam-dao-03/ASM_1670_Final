@@ -1,6 +1,7 @@
 ﻿using ASM_1670_Final.Data;
 using ASM_1670_Final.Models;
 using ASM_1670_Final.Models.ViewModel;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASM_1670_Final.Controllers
@@ -8,17 +9,22 @@ namespace ASM_1670_Final.Controllers
     public class ClientController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public ClientController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public ClientController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var listJob = _context.Jobs.ToList();
+            var user = _userManager.GetUserId(User);
+            ViewBag.UserId = user;
+            return View(listJob);
         }
         [HttpGet]
-        public IActionResult DetailJob(string? id)
+        public IActionResult DetailJob(int? id)
         {
             var job = _context.Jobs.Find(id);
             var jobs = _context.Jobs.ToList();
@@ -32,7 +38,15 @@ namespace ASM_1670_Final.Controllers
         [HttpGet]
         public IActionResult CreateJob()
         {
-            return View();
+            var user = _userManager.GetUserId(User);
+            if (user != null)
+            {
+                ViewBag.UserId = user;
+                return View();
+            } else
+            {
+                return RedirectToAction(nameof(Index));
+            }
         }
         [HttpPost]
         public IActionResult CreateJob(Job model)

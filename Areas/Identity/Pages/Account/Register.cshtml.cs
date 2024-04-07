@@ -34,7 +34,7 @@ namespace ASM_1670_Final.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly RoleManager<ApplicationRole> _roleManager;
-        private readonly ApplicationDbContext _context;
+  
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
@@ -42,8 +42,8 @@ namespace ASM_1670_Final.Areas.Identity.Pages.Account
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            RoleManager<ApplicationRole> roleManager,
-            ApplicationDbContext context)
+            RoleManager<ApplicationRole> roleManager
+            )
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -52,7 +52,7 @@ namespace ASM_1670_Final.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             _roleManager = roleManager;
-            _context = context;
+    
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace ASM_1670_Final.Areas.Identity.Pages.Account
 
             Input = new InputModel()
             {
-                RoleList = _context.Roles
+                RoleList = _roleManager.Roles
                     .Where(x => x.Name != "Admin") // Lọc ra các role không phải là "Admin"
                     .Select(x => x.Name)
                     .Select(i => new SelectListItem

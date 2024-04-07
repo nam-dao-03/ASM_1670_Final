@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ASM_1670_Final.Models
 {
     public class JobApplication
     {
-        public string? Id { get; set; }
+        [Key]
+        public int Id { get; set; }
         public string? Title { get; set; }
         public string? Introduction { get; set; }
         public string? CVUrl { get; set; }

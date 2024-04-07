@@ -11,7 +11,7 @@
         {
             @foreach (var job in Model)
             {
-                <a asp-controller="Client" asp-action="Detail">
+                <a asp-controller="Home" asp-action="DetailJob" asp-route-id="@job.Id">
                     <div class="job-box">
                         <div class="job-box__row">
                             <h3 class="job-box__heading">@Html.DisplayFor(model => job.JobTitle)</h3>
