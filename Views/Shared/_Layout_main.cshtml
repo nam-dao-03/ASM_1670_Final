@@ -34,7 +34,16 @@
         </div>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="main">
+            <section class="searching">
+                <div class="container">
+                    <form action="" class="search-form">
+                        <input class="search-job" type="text" placeholder="Search Job" />
+                        <input class="search-location" type="text" placeholder="Search Location" />
+                        <button class="search-submit" type="submit">Search</button>
+                    </form>
+                </div>
+            </section>
             @RenderBody()
         </main>
     </div>

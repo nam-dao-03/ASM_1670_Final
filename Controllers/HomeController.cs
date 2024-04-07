@@ -1,3 +1,4 @@
+using ASM_1670_Final.Data;
 using ASM_1670_Final.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -6,11 +7,10 @@ namespace ASM_1670_Final.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ApplicationDbContext _context;
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
