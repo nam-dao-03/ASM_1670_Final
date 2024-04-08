@@ -1,6 +1,7 @@
 ﻿using ASM_1670_Final.Data;
 using ASM_1670_Final.Models;
 using ASM_1670_Final.Models.ViewModel;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +11,12 @@ namespace ASM_1670_Final.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        public ClientController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public ClientController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _userManager = userManager;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Index()
@@ -36,10 +39,41 @@ namespace ASM_1670_Final.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
+        [NonAction]
+        private string UploadedFile(Job model)
+        {
+            string uniqueFileName = null;
+            if (model.Avatar != null)
+            {
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                uniqueFileName = model.Avatar.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.Avatar.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
+        }
         [HttpPost]
         public IActionResult CreateJob(Job model)
         {
-            _context.Jobs.Add(model);
+            string uniqueFileName = UploadedFile(model);
+            Job job = new Job
+            {
+                JobTitle = model.JobTitle,
+                Location = model.Location,
+                Industry = model.Industry,
+                AvartarUrl = uniqueFileName,
+                Description = model.Description,
+                Requiered1 = model.Requiered1,
+                Requiered2 = model.Requiered2,
+                ApplicationDeadline = model.ApplicationDeadline,
+                LowestPrice = model.LowestPrice,
+                HighestPrice = model.HighestPrice,
+                UserId = model.UserId,
+            };
+            _context.Jobs.Add(job);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
             
