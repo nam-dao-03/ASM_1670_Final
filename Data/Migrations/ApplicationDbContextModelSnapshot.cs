@@ -171,13 +171,12 @@ namespace ASM_1670_Final.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Jobs");
                 });
@@ -203,13 +202,12 @@ namespace ASM_1670_Final.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
+                    b.HasIndex("UserId");
 
                     b.ToTable("JobApplications");
                 });
@@ -330,20 +328,24 @@ namespace ASM_1670_Final.Data.Migrations
 
             modelBuilder.Entity("ASM_1670_Final.Models.Job", b =>
                 {
-                    b.HasOne("ASM_1670_Final.Models.ApplicationUser", "User_Id")
-                        .WithOne("Job")
-                        .HasForeignKey("ASM_1670_Final.Models.Job", "UserId");
+                    b.HasOne("ASM_1670_Final.Models.ApplicationUser", "Users")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("User_Id");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("ASM_1670_Final.Models.JobApplication", b =>
                 {
-                    b.HasOne("ASM_1670_Final.Models.ApplicationUser", "User_Id")
-                        .WithOne("JobApplication")
-                        .HasForeignKey("ASM_1670_Final.Models.JobApplication", "UserId");
+                    b.HasOne("ASM_1670_Final.Models.ApplicationUser", "Users")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("User_Id");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -390,12 +392,6 @@ namespace ASM_1670_Final.Data.Migrations
             modelBuilder.Entity("ASM_1670_Final.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Claims");
-
-                    b.Navigation("Job")
-                        .IsRequired();
-
-                    b.Navigation("JobApplication")
-                        .IsRequired();
 
                     b.Navigation("Logins");
 

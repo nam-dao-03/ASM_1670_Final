@@ -17,12 +17,6 @@ namespace ASM_1670_Final.Controllers
             _context = context;
             _roleManager = roleManager;
         }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         //Roles
         public IActionResult IndexRole()
         {
@@ -81,8 +75,34 @@ namespace ASM_1670_Final.Controllers
         //[HttpPost]
         //public async Task<IActionResult> CreateUser(ApplicationUser model)
         //{
-            
+
         //    return View();
         //}
+
+        [HttpGet] 
+        public IActionResult DetailUser ()
+        {
+            var user = _context.Users.ToList();
+            return View(user);
+        }
+        [HttpGet]
+        public IActionResult JobList()
+        {
+            var jobs = _context.Jobs.Include(x => x.Users).ToList();
+            return View(jobs);
+        }
+        [HttpGet]
+        public IActionResult DeleteJob(int? id)
+        {
+            var job = _context.Jobs.Find(id);
+            return View(job);
+        }
+        [HttpPost]
+        public IActionResult DeleteJob(Job job)
+        {
+            _context.Jobs.Remove(job);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(JobList));
+        }
     }
 }

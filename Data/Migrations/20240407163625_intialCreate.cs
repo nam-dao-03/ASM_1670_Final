@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ASM_1670_Final.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class fix : Migration
+    public partial class intialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,7 +33,7 @@ namespace ASM_1670_Final.Data.Migrations
                     Introduction = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CVUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,7 +42,8 @@ namespace ASM_1670_Final.Data.Migrations
                         name: "FK_JobApplications_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -60,7 +61,7 @@ namespace ASM_1670_Final.Data.Migrations
                     ApplicationDeadline = table.Column<DateTime>(type: "datetime2", nullable: true),
                     LowestPrice = table.Column<int>(type: "int", nullable: true),
                     HighestPrice = table.Column<int>(type: "int", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,22 +70,19 @@ namespace ASM_1670_Final.Data.Migrations
                         name: "FK_Jobs_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_JobApplications_UserId",
                 table: "JobApplications",
-                column: "UserId",
-                unique: true,
-                filter: "[UserId] IS NOT NULL");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Jobs_UserId",
                 table: "Jobs",
-                column: "UserId",
-                unique: true,
-                filter: "[UserId] IS NOT NULL");
+                column: "UserId");
         }
 
         /// <inheritdoc />

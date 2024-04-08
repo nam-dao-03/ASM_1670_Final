@@ -24,18 +24,6 @@ namespace ASM_1670_Final.Controllers
             return View(listJob);
         }
         [HttpGet]
-        public IActionResult DetailJob(int? id)
-        {
-            var job = _context.Jobs.Find(id);
-            var jobs = _context.Jobs.ToList();
-            var viewmodel = new ViewModelDetailJob
-            {
-                JobList = jobs,
-                job = job
-            };
-            return View(viewmodel);
-        }
-        [HttpGet]
         public IActionResult CreateJob()
         {
             var user = _userManager.GetUserId(User);
@@ -56,5 +44,53 @@ namespace ASM_1670_Final.Controllers
             return RedirectToAction(nameof(Index));
             
         }
+        [HttpGet]
+        public IActionResult DetailJob(int? id)
+        {
+            ViewBag.JobId = id;
+            var job = _context.Jobs.Find(id);
+            var jobs = _context.Jobs.ToList();
+            var viewmodel = new ViewModelDetailJob
+            {
+                JobList = jobs,
+                job = job
+            };
+            return View(viewmodel);
+        }
+        [HttpGet]
+        public IActionResult EditJob(int? id)
+        {
+            if (id != null)
+            {
+                var editJob = _context.Jobs.Find(id);
+                return View(editJob);   
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpPost]
+        public IActionResult EditJob(Job job)
+        {
+            _context.Jobs.Update(job);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
+        public IActionResult DeleteJob(int? id)
+        {
+            if (id != null)
+            {
+                var deleteJob = _context.Jobs.Find(id);
+                return View(deleteJob);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpPost]
+        public IActionResult DeleteJob(Job job)
+        {
+            _context.Jobs.Remove(job);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

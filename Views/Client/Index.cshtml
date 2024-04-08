@@ -21,19 +21,18 @@ position:relative;
 top: -12px">Create New Job</a>
     <div class="container">
         <h2 class="job-list__heading">My Job</h2>
-        <h1>@ViewBag.UserId</h1>
         
         <div class="job-list-row">
             @if (Model != null && Model.Any())
             {
                 @foreach (var job in Model)
                 {
-                    @* @if (job.User_Id == @ViewBag.UserId.ToString())
-                    { *@
+                    @if (job.UserId == @ViewBag.UserId.ToString())
+                    {
                     <a asp-controller="Client" asp-action="DetailJob" asp-route-id="@job.Id">
                         <div class="job-box">
                             <div class="job-box__row">
-                                <h3 class="job-box__heading">@Html.DisplayFor(model => job.User_Id)</h3>
+                                <h3 class="job-box__heading">@job.JobTitle</h3>
                                 <p class="job-box__salary"><span>@Html.DisplayFor(model => job.LowestPrice)</span>$ - <span>@Html.DisplayFor(model => job.HighestPrice)</span>$</p>
                             </div>
                             <div class="job-box__exp-list">
@@ -60,7 +59,7 @@ top: -12px">Create New Job</a>
                             </div>
                         </div>
                     </a>
-                    @* } *@
+                    }
                 }
             }
             else

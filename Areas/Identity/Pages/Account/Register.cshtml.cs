@@ -179,6 +179,17 @@ namespace ASM_1670_Final.Areas.Identity.Pages.Account
                 }
             }
             // If we got this far, something failed, redisplay form
+            Input = new InputModel()
+            {
+                RoleList = _roleManager.Roles
+                    .Where(x => x.Name != "Admin") // Lọc ra các role không phải là "Admin"
+                    .Select(x => x.Name)
+                    .Select(i => new SelectListItem
+                    {
+                        Text = i,
+                        Value = i
+                    })
+            };
             return Page();
         }
 

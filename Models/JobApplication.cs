@@ -14,8 +14,8 @@ namespace ASM_1670_Final.Models
         [NotMapped]
         public IFormFile? CurriculumVitae { get; set; }
         public bool? Status { get; set; }
-        public string? UserId { get; set; }
-        [ForeignKey("UserId")]
-        public virtual ApplicationUser? User_Id { get; set; }
+        [ForeignKey("Users")]
+        public string UserId { get; set; }
+        public virtual ApplicationUser Users { get; set; }
     }
 }

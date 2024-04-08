@@ -17,9 +17,8 @@ namespace ASM_1670_Final.Models
         public DateTime? ApplicationDeadline { get; set; }
         public int? LowestPrice { get; set; }
         public int? HighestPrice { get; set; }
-        public string? UserId { get; set; }
-        [ForeignKey("UserId")]
-        public virtual ApplicationUser? User_Id { get; set; }
-
+        [ForeignKey("Users")]
+        public string UserId { get; set; }
+        public virtual ApplicationUser Users { get; set; }
     }
 }

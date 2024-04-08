@@ -13,7 +13,5 @@ namespace ASM_1670_Final.Models
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
         public virtual ICollection<IdentityUserToken<string>> Tokens { get; set; }
         public virtual ICollection<ApplicationUserRole> UserRoles { get; set; }
-        public virtual Job Job { get; set; }
-        public virtual JobApplication JobApplication { get; set; }
     }
 }
