@@ -10,13 +10,12 @@
 
 <div class="content">
     <h3>@ViewData["Title"]</h3>
-    <a asp-action="CreateUser" class="btn btn-primary btn-sm mb-3">Create New User</a>
+    <a asp-controller="Admin" asp-action="CreateUserForHuman" class="btn btn-primary btn-sm mb-3">Create New User</a>
     <div class="table-container">
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>Email</th>
-                        <th>Password</th>
                         <th>Role</th>
                         <th>Action</th>
                     </tr>
@@ -28,12 +27,12 @@
                         {
                             <tr>
                                 <td>@Html.DisplayFor(model => user.User.Email)</td>
-                                <td>@Html.DisplayFor(model => user.User.PasswordHash)</td>
                                 <td>@Html.DisplayFor(model => user.Role.Name)</td>
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@user.User.Id" class="btn btn-primary btn-sm">Detail</a>
-                                    <a asp-action="Edit" asp-route-id="@user.User.Id" class="btn btn-success btn-sm">Edit</a>
-                                    <a asp-action="Delete" asp-route-id="@user.User.Id" class="btn btn-danger btn-sm">Delete</a>
+                                <form asp-controller="Admin" asp-action="DeleteUser" method="post">
+                                    <input type="hidden" name="id" value="@user.User.Id" />
+                                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                                </form>
                                 </td>
                             </tr>
                         }
