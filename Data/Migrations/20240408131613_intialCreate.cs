@@ -12,12 +12,6 @@ namespace ASM_1670_Final.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "AvartarUrl",
-                table: "AspNetUsers",
-                type: "nvarchar(max)",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
                 name: "Description",
                 table: "AspNetUsers",
                 type: "nvarchar(max)",
@@ -55,6 +49,7 @@ namespace ASM_1670_Final.Data.Migrations
                     JobTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Industry = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AvartarUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Requiered1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Requiered2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -93,10 +88,6 @@ namespace ASM_1670_Final.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Jobs");
-
-            migrationBuilder.DropColumn(
-                name: "AvartarUrl",
-                table: "AspNetUsers");
 
             migrationBuilder.DropColumn(
                 name: "Description",

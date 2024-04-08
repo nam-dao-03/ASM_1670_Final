@@ -57,9 +57,6 @@ namespace ASM_1670_Final.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("AvartarUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -145,6 +142,9 @@ namespace ASM_1670_Final.Data.Migrations
 
                     b.Property<DateTime?>("ApplicationDeadline")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("AvartarUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");

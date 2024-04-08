@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASM_1670_Final.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240407163625_intialCreate")]
+    [Migration("20240408131613_intialCreate")]
     partial class intialCreate
     {
         /// <inheritdoc />
@@ -59,9 +59,6 @@ namespace ASM_1670_Final.Data.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("AvartarUrl")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -148,6 +145,9 @@ namespace ASM_1670_Final.Data.Migrations
 
                     b.Property<DateTime?>("ApplicationDeadline")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("AvartarUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");

@@ -11,6 +11,9 @@ namespace ASM_1670_Final.Models
         public string? JobTitle { get; set; }
         public string? Location { get; set; }
         public string? Industry { get; set; }
+        public string? AvartarUrl { get; set; }
+        [NotMapped]
+        public IFormFile? Avatar { get; set; }
         public string? Description { get; set; }
         public string? Requiered1 { get; set; }
         public string? Requiered2 { get; set; }
