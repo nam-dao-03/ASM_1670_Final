@@ -24,10 +24,7 @@
                         <p class="detail__job-exp">- Tối thiểu Cử Nhân</p>
                         <p class="detail__job-hot">Hot</p>
                         <p class="detail__job-deadline">Deadline: @Model.job.ApplicationDeadline</p>
-                            <form asp-action="CreateCV" asp-controller="Home">
-                                <input type="hidden" value="@Model.job.Id" />
-                                <button type="submit" class="detail__job-apply">apply for position</button>
-                            </form>
+                            <a asp-controller="Client" asp-action="CheckCV" asp-route-id="@Model.job.Id" class="detail__job-apply">See CVs</a>
                     </div>
                 </div>
                 <div class="detail__job-line"></div>
@@ -83,10 +80,9 @@
         {
             <h1>Nothing in here</h1>
         }
-
             <div class="edit-button">
-            <a asp-controller="Client" asp-action="EditJob" asp-route-id="@ViewBag.JobId" class="edit-button__btn" type="submit">Edit</a>
-            <a asp-controller="Client" asp-action="DeleteJob" asp-route-id="@ViewBag.JobId" class="delete-button__btn" type="submit">Delete</a>
+            <a asp-controller="Client" asp-action="EditJob" asp-route-id="@ViewBag.JobId" class="edit-button__btn">Edit</a>
+            <a asp-controller="Client" asp-action="DeleteJob" asp-route-id="@ViewBag.JobId" class="delete-button__btn">Delete</a>
         </div>
         
     </div>
@@ -161,6 +157,8 @@
     }
 
     .detail__job-apply {
+        display: inline-block;
+        text-align:center;
         font-size: 1.6rem;
         letter-spacing: 1px;
         padding: 10px 20px;

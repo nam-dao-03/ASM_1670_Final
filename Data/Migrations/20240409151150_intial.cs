@@ -11,12 +11,6 @@ namespace ASM_1670_Final.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Description",
-                table: "AspNetUsers",
-                type: "nvarchar(max)",
-                nullable: true);
-
             migrationBuilder.CreateTable(
                 name: "JobApplications",
                 columns: table => new
@@ -26,7 +20,8 @@ namespace ASM_1670_Final.Data.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Introduction = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CVUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: true),
+                    JobId = table.Column<int>(type: "int", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -88,10 +83,6 @@ namespace ASM_1670_Final.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Jobs");
-
-            migrationBuilder.DropColumn(
-                name: "Description",
-                table: "AspNetUsers");
         }
     }
 }

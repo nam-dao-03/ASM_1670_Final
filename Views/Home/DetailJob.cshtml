@@ -24,7 +24,7 @@
                         <p class="detail__job-exp">- Tối thiểu Cử Nhân</p>
                         <p class="detail__job-hot">Hot</p>
                         <p class="detail__job-deadline">Deadline: @Model.job.ApplicationDeadline</p>
-                        <button class="detail__job-apply">apply for position</button>
+                            <a asp-controller="Home" asp-action="CreateCV" asp-route-id="@Model.job.Id" class="detail__job-apply">apply for position</a>
                     </div>
                 </div>
                 <div class="detail__job-line"></div>
@@ -152,6 +152,7 @@
     }
 
     .detail__job-apply {
+        display: inline-block;
         font-size: 1.6rem;
         letter-spacing: 1px;
         padding: 10px 20px;

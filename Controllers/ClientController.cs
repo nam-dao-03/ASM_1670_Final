@@ -1,6 +1,7 @@
 ﻿using ASM_1670_Final.Data;
 using ASM_1670_Final.Models;
 using ASM_1670_Final.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using Newtonsoft.Json;
 
 namespace ASM_1670_Final.Controllers
 {
+    [Authorize(Roles = "Client")]
     public class ClientController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -165,6 +167,38 @@ namespace ASM_1670_Final.Controllers
             _context.Jobs.Remove(jobToDelete);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
+        public IActionResult CheckCV(int? id)
+        {
+            ViewBag.JobId = id;
+            var jobApplication = _context.JobApplications.ToList();
+            return View(jobApplication);
+        }
+        [HttpPost]
+        public IActionResult DetailCV(int jobId,int jobAppId)
+        {
+            ViewBag.JobId = jobId;
+            var jobApplication = _context.JobApplications.Find(jobAppId);
+            return View(jobApplication);
+        }
+        [HttpPost]
+        public IActionResult AcceptJob(int jobId,int jobAppId)
+        {
+            var model = _context.JobApplications.Find(jobAppId);
+            model.Status = "Accepted";
+            _context.SaveChanges();
+            int id = jobId;
+            return RedirectToAction(nameof(CheckCV), new { id });
+        }
+        [HttpPost]
+        public IActionResult RejectJob(int jobId, int jobAppId)
+        {
+            var model = _context.JobApplications.Find(jobAppId);
+            model.Status = "Rejected";
+            _context.SaveChanges();
+            int id = jobId;
+            return RedirectToAction(nameof(CheckCV), new { id });
         }
     }
 }
