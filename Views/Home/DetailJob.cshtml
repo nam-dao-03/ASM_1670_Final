@@ -10,7 +10,7 @@
             <div class="detail__job-column-left">
                 <div class="detail__job-column-left-main">
                     <div class="detail__job-img">
-                        <img src="./assets/img/image-congty.webp" alt="">
+                        <img src="~/images/@Model.job.AvatarUrl" alt="">
                     </div>
                     <div class="detail__job-section-main">
                         <h2 class="detail__job-heading">
@@ -39,7 +39,7 @@
                 </p>
             </div>
             <div class="deatail__job-column-right">
-                <h3 class="other-job">Việc làm khác từ <span>@Model.job.Industry</span></h3>
+                <h3 class="other-job">Other Jobs</h3>
                 <div class="other-job-list">
                     @if (Model.JobList != null && Model.JobList.Any())
                     {
@@ -51,7 +51,7 @@
                                     <div class="other-job-section">
                                         <div class="other-job-section-main">
                                             <div class="other-job-section-img">
-                                                <img src="./assets/img/image-congty.webp" alt="">
+                                                <img src="~/images/@otherJob.AvatarUrl" alt="">
                                             </div>
                                             <div class="other-job-section-desc">
                                                 <h2 class="other-job__heading">

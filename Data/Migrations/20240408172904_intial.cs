@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ASM_1670_Final.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class intialCreate : Migration
+    public partial class intial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,7 +49,7 @@ namespace ASM_1670_Final.Data.Migrations
                     JobTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Industry = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AvartarUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AvatarUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Requiered1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Requiered2 = table.Column<string>(type: "nvarchar(max)", nullable: true),

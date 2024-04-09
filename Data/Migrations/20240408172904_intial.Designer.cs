@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASM_1670_Final.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240408131613_intialCreate")]
-    partial class intialCreate
+    [Migration("20240408172904_intial")]
+    partial class intial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -146,7 +146,7 @@ namespace ASM_1670_Final.Data.Migrations
                     b.Property<DateTime?>("ApplicationDeadline")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("AvartarUrl")
+                    b.Property<string>("AvatarUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")

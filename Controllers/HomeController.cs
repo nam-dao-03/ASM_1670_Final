@@ -31,16 +31,38 @@ namespace ASM_1670_Final.Controllers
             };
             return View(viewmodel);
         }
-
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult Search(string SearchJob, string SearchLocation)
         {
+            var jobSearch = _context.Jobs.ToList();
+            if(!String.IsNullOrEmpty(SearchJob) && String.IsNullOrEmpty(SearchLocation))
+            {
+                jobSearch = jobSearch.Where(n => n.JobTitle.Contains(SearchJob)).ToList();
+            }
+            else if(!String.IsNullOrEmpty(SearchLocation) && String.IsNullOrEmpty(SearchJob))
+            {
+                jobSearch = jobSearch.Where(n => n.Location.Contains(SearchLocation)).ToList();
+            }
+            else if(!String.IsNullOrEmpty(SearchLocation) && !String.IsNullOrEmpty(SearchJob))
+            {
+                jobSearch = jobSearch.Where(n => n.JobTitle.Contains(SearchJob) && n.Location.Contains(SearchLocation)).ToList();
+            } else
+            {
+                return View(jobSearch);
+            }
+            return View(jobSearch); 
+        }
+        [HttpGet]
+        public IActionResult MyCV(int id)
+        {
+            ViewBag.JobId = id;
             return View();
         }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        public IActionResult CreateCV(int id)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            ViewBag.JobId = id;
+            return View();
         }
     }
 }

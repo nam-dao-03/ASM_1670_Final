@@ -143,7 +143,7 @@ namespace ASM_1670_Final.Data.Migrations
                     b.Property<DateTime?>("ApplicationDeadline")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("AvartarUrl")
+                    b.Property<string>("AvatarUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")

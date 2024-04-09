@@ -1,38 +1,20 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout_main.cshtml";
 }
+@using Microsoft.AspNetCore.Identity
 @model IEnumerable<Job>
 <section class="job-list">
-    <a asp-controller="Client" asp-action="CreateJob" style="padding: 8px 18px;
-    border-radius: 8px;
-    font-size: 1.2rem;
-    letter-spacing: 1px;
-    width: 170px;
-    background-color: rgb(1, 126, 183);
-    color: rgb(255, 255, 255);
-    line-height: 1.3;
-    font-weight: bold;
-    border: none;
-    text-transform: uppercase;
-    outline: none;
-    cursor: pointer;
-    transition: all 0.5s ease 0s;
-position:relative;
-top: -12px">Create New Job</a>
     <div class="container">
-        <h2 class="job-list__heading">My Job</h2>
-        
+        <h2 class="job-list__heading">Job List</h2>
         <div class="job-list-row">
             @if (Model != null && Model.Any())
             {
                 @foreach (var job in Model)
                 {
-                    @if (job.UserId == @ViewBag.UserId.ToString())
-                    {
-                    <a asp-controller="Client" asp-action="DetailJob" asp-route-id="@job.Id">
+                    <a asp-controller="Home" asp-action="DetailJob" asp-route-id="@job.Id">
                         <div class="job-box">
                             <div class="job-box__row">
-                                <h3 class="job-box__heading">@job.JobTitle</h3>
+                                <h3 class="job-box__heading">@Html.DisplayFor(model => job.JobTitle)</h3>
                                 <p class="job-box__salary"><span>@Html.DisplayFor(model => job.LowestPrice)</span>$ - <span>@Html.DisplayFor(model => job.HighestPrice)</span>$</p>
                             </div>
                             <div class="job-box__exp-list">
@@ -45,7 +27,7 @@ top: -12px">Create New Job</a>
                             </div>
                             <div class="job-box__company">
                                 <div class="job-box__company-img">
-                                        <img src="~/images/@job.AvatarUrl" alt="">
+                                    <img src="~/images/@job.AvatarUrl" alt="">
                                 </div>
                                 <div class="job-box__company-desc">
                                     <p>@Html.DisplayFor(model => job.Industry)</p>
@@ -59,7 +41,6 @@ top: -12px">Create New Job</a>
                             </div>
                         </div>
                     </a>
-                    }
                 }
             }
             else
