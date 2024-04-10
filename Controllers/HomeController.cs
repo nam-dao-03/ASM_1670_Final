@@ -69,6 +69,8 @@ namespace ASM_1670_Final.Controllers
             if (model.CurriculumVitae != null)
             {
                 string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                if (!Directory.Exists(uploadsFolder))
+                    Directory.CreateDirectory(uploadsFolder);
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + model.CurriculumVitae.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
