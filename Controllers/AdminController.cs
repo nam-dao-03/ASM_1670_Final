@@ -21,15 +21,12 @@ namespace ASM_1670_Final.Controllers
         public AdminController(
             ApplicationDbContext context, 
             RoleManager<ApplicationRole> roleManager, 
-            UserManager<ApplicationUser> userManager,
-            IUserStore<ApplicationUser> userStore
+            UserManager<ApplicationUser> userManager
             )
         {
             _context = context;
             _roleManager = roleManager;
             _userManager = userManager;
-            _userStore = userStore;
-            _emailStore = GetEmailStore();
         }
 
 
@@ -70,66 +67,13 @@ namespace ASM_1670_Final.Controllers
         }
 
         //User
-        [HttpGet]
-        private ApplicationUser CreateUser()
-        {
-            try
-            {
-                return Activator.CreateInstance<ApplicationUser>();
-            }
-            catch
-            {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
-                    $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
-                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
-            }
-        }
-        private IUserEmailStore<ApplicationUser> GetEmailStore()
-        {
-            if (!_userManager.SupportsUserEmail)
-            {
-                throw new NotSupportedException("The default UI requires a user store with email support.");
-            }
-            return (IUserEmailStore<ApplicationUser>)_userStore;
-        }
-        public IActionResult CreateUserForHuman()
-        {
-            LoadRole();
-            return View();
-        }
         [NonAction]
         private void LoadRole()
         {
             var roles = _roleManager.Roles.ToList();
             ViewBag.Roles = new SelectList(roles, "Id", "Name");
         }
-        [HttpPost]
-        public async Task<IActionResult> CreateUserHuman(string Email, string Password, string Role)
-        {
-            var user = CreateUser();
-            await _userStore.SetUserNameAsync(user, Email, CancellationToken.None);
-            await _emailStore.SetEmailAsync(user, Email, CancellationToken.None);
-            var result = await _userManager.CreateAsync(user, Password);
-            if (result.Succeeded)
-            {
-                var selectedRole = await _roleManager.FindByIdAsync(Role);
-                if (selectedRole != null)
-                {
-                    // Gán role cho người dùng
-                    await _userManager.AddToRoleAsync(user, selectedRole.Name);
-                    return RedirectToAction(nameof(IndexUser));
-                }
-                else
-                {
-                    return RedirectToAction(nameof(CreateUserForHuman));
-                }
-            }
-            else
-            {
-                return RedirectToAction(nameof(CreateUserForHuman));
-            }
-        }
-
+        
         public IActionResult IndexUser()
         {
             var users = _context.UserRoles.Include(x => x.User).Include(y => y.Role).ToList();

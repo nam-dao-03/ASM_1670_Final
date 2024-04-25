@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace ASM_1670_Final.Controllers
@@ -174,7 +175,7 @@ namespace ASM_1670_Final.Controllers
         public IActionResult CheckCV(int? id)
         {
             ViewBag.JobId = id;
-            var jobApplication = _context.JobApplications.ToList();
+            var jobApplication = _context.JobApplications.Include(x => x.Users).ToList();
             return View(jobApplication);
         }
         [HttpPost]
